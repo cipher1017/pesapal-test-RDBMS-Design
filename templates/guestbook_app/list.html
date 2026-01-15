@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Guestbook</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; }
+    table { border-collapse: collapse; width: 100%; max-width: 900px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background: #f8f8f8; }
+    .actions { white-space: nowrap; }
+    .nav { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="{% url 'guestbook_app:add' %}">Add new entry</a>
+  </div>
+
+  <h1>Guestbook entries</h1>
+
+  {% if entries %}
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Message</th><th>Created</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for e in entries %}
+      <tr>
+        <td>{{ e.id }}</td>
+        <td>{{ e.name }}</td>
+        <td>{{ e.message }}</td>
+        <td>{{ e.created_str }}</td>
+        <td class="actions">
+          <a href="{% url 'guestbook_app:edit' e.id %}">Edit</a>
+          <form action="{% url 'guestbook_app:delete' e.id %}" method="post" style="display:inline">
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('Delete entry {{ e.id }}?')">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>(no entries)</p>
+  {% endif %}
+</body>
+</html>

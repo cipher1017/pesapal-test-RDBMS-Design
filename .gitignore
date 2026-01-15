@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env/
+
+# Django
+*.log
+
+# Mini DB runtime files (generated locally)
+catalog.json
+data/
+
+# OS
+.DS_Store

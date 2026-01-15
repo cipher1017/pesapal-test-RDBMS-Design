@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Edit entry {{ entry.id }}</title>
+</head>
+<body>
+  <h1>Edit entry {{ entry.id }}</h1>
+  <form method="post">
+    {% csrf_token %}
+    <label>Name:<br><input name="name" required value="{{ entry.name }}"></label><br><br>
+    <label>Message:<br><textarea name="message" rows="5" cols="50" required>{{ entry.message }}</textarea></label><br><br>
+    <button type="submit">Save</button>
+    <a href="{% url 'guestbook_app:list' %}">Cancel</a>
+  </form>
+</body>
+</html>
